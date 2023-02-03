@@ -1,128 +1,61 @@
-require './book'
-require './rental'
 require './student'
 require './teacher'
-require './create_student'
-require './create_teacher'
-require './main'
-require './list_rentals'
-require './rent_out_book'
+require './book'
+require './rental'
 
 class App
-  attr_accessor :book, :person, :rentals
-
   def initialize
     @books = []
-    @persons = []
+    @people = []
     @rentals = []
   end
 
-  def select_option
-    option = gets.chomp
-
-    case option
-    when '1' then list_all_books
-    when '2' then list_all_people
-    when '3' then create_a_person
-    when '4' then create_a_book
-    when '5' then create_a_rental
-    when '6' then list_rentals
-    when '7' then stop_application
-    else
-      puts 'Invalid option. Option must be between 1 and 7'
-      select_option
+  def list_books
+    @books.each_index do |index|
+      puts "#{index} => Title: #{@books[index].title}  |  Author: #{@books[index].author}"
     end
   end
 
-  def library_menu
-    puts ''
-    puts 'Welcome to School library App!'
-    puts ''
-    puts 'Please chose an option by entering a number:'
-    puts '1 - List all books'
-    puts '2 - List all people'
-    puts '3 - Create a person'
-    puts '4 - Create a book'
-    puts '5 - Create a rental'
-    puts '6 - List all rentals for a given person id'
-    puts '7 - Exit'
-    puts ''
-    select_option
-  end
-
-  def list_all_books
-    if @books.empty?
-      puts 'No books available at the moment.'
-      puts ''
-      puts 'Enter 4 to create a new book'
-      select_option
-    else
-      puts 'List of available books:'
-      puts ''
-      @books.each do |book|
-        puts "Title: #{book.title}, Author: #{book.author}"
+  def list_people
+    label = nil
+    @people.each_index do |index|
+      if @people[index].instance_of? Teacher
+        label = '[Teacher]'
+      elsif @people[index].instance_of? Student
+        label = '[Student]'
       end
-      library_menu
+      puts "#{index} => #{label}:  Name: #{@people[index].name}\
+  |  Age: #{@people[index].age} | Id: #{@people[index].id}"
     end
   end
 
-  def list_all_people
-    if @persons.empty?
-      puts 'No people available at the moment'
-      puts ''
-      puts 'Enter 3 to create a new person'
-      select_option
-    else
-      puts 'List of available people:'
-      puts ''
-      @persons.each do |person|
-        puts "#{[person.class]} Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-      end
-      library_menu
-    end
-  end
-
-  def create_a_book
-    print 'Title: '
-    title = gets.chomp
-
-    print 'Author: '
-    author = gets.chomp
-
-    @books.push(Book.new(title, author))
-    puts 'Book successfully created!'
-    library_menu
-  end
-
-  def create_a_person
-    print 'Do you want to create a student (1) or a teacher (2)? [Input the number]: '
-    person_no = gets.chomp
-
-    case person_no
+  def create_person(age, name, type, permission = nil, spec = nil)
+    case type
     when '1'
-      create_a_student
+      person = Student.new(age, name, permission)
+      @people << person
     when '2'
-      create_a_teacher
-    else
-      puts 'Invalid selection'
-      puts ''
+      person = Teacher.new(age, name, spec)
+      @people << person
     end
-    library_menu
   end
 
-  def create_a_rental
-    rent_book
+  def create_book(title, author)
+    book = Book.new(title, author)
+    @books << book
   end
 
-  def list_rentals
-    list_person_rentals
+  def create_rental(date, book_index, person_index)
+    book = @books[book_index.to_i]
+    person = @people[person_index.to_i]
+    @rentals << Rental.new(date, book, person)
   end
 
-  def stop_application
-    puts 'Thank you for using this app'
-    exit
+  def list_rentals(person_id)
+    @rentals.each do |rental|
+      if rental.person.id == person_id
+        puts "Date: #{rental.date}, Book \"#{rental.book.title}\" By #{rental.book.author}"
+      end
+    end
   end
-
-  start_app = Main.new
-  start_app.main
 end
