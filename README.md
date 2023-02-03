@@ -36,18 +36,42 @@
 
 > Ruby
 
+### Key Features
+
+- **_Coming soon!_**
+
 
 <!-- GETTING STARTED -->
 
-## 💻 Getting Started <a name="getting-started"></a>
+## Getting Started 
 
-> Install Ruby on your computer
-
-To get a local copy up and running, follow these steps.
+> To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-> A computer with Ruby
+  - <a href="https://www.ruby-lang.org/en/news/2022/11/24/ruby-3-1-3-released/">Ruby 3.1</a>
+  - Rubocop _(for local automated tests)_
+
+### Setup
+
+1. Clone this project on your local machine using the following command on your Git Bash: `git clone https://github.com/ouasamine/school-library`
+
+2. Browse to project directory `cd school-library`
+
+3. Run `bundle install` to install the dependencies
+
+
+### Available Scripts
+
+In the project directory, you can run:
+
+- `ruby student.rb/teacher.rb`
+
+  Runs the app on your bash
+
+- `rubocop`
+
+  Launches the test runner.
 
 
 <!-- AUTHORS -->
