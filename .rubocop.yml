@@ -56,3 +56,6 @@ Layout/EndOfLine:
 
 Layout/EndOfLine:
   Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
