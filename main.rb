@@ -38,34 +38,34 @@ class Main
   def handle_person
     print 'Do you want to create a (1) student OR a (2) teacher: '
     type_input = gets.chomp
-    print 'Enter the person name: '
+    print 'Person name:'
     name_input = gets.chomp
-    print 'Enter the person age: '
+    print 'Person age: '
     age_input = gets.chomp
     create_person_by_type(age_input, name_input, type_input)
-    puts 'Person Created Successfully'
+    puts 'Person Created'
   end
 
   def handle_book
-    print "Enter the book's title: "
+    print 'Book title:'
     btitle_input = gets.chomp
-    print "Enter the book's author: "
+    print "Author's name: "
     bauthor_input = gets.chomp
     @app.create_book(btitle_input, bauthor_input)
-    puts 'Book Created Successfully'
+    puts 'Book Created '
   end
 
   def handle_rental
     @app.list_books
-    print 'Please pick one of the available books: '
+    print 'Please select a book: '
     input_book_index = gets.chomp
     @app.list_people
-    print 'Please define the person renting the book: '
+    print 'Who is renting the book: '
     input_renter_index = gets.chomp
-    print 'Please enter the rental date [yyyy-mm-dd]:  '
+    print 'Rental date [yyyy-mm-dd]:  '
     input_date = gets.chomp
     @app.create_rental(input_date, input_book_index, input_renter_index)
-    print 'Rental created successfully'
+    print 'You have created a rental'
   end
 
   def launch
@@ -89,17 +89,16 @@ class Main
       handle_rental
       launch
     when '6'
-      print 'Enter the ID of the person: '
+      print 'Chose an id: '
       input_id = gets.chomp
       @app.list_rentals(input_id.to_i)
       launch
     when '7'
-      puts 'Exiting....'
+      puts 'Thank you for using the app....'
       exit
     end
   end
 end
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength
 
 def main
   welcome_message = "\n################################\nWelcome to School Library App! \n\n
