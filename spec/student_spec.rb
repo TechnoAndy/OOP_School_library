@@ -1,1 +1,2 @@
-require '../student'
+require_relative '../student'
+

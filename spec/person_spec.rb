@@ -1,1 +1,1 @@
-require '../person'
+require_relative '../person'
